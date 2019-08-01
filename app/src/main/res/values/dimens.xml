@@ -1,0 +1,19 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+
+
+
+    <dimen name="textsize_main_title">26sp</dimen>
+    <dimen name="textsize_title">22sp</dimen>
+    <dimen name="textsize_table_header">18sp</dimen>
+    <dimen name="textsize_normal">18sp</dimen>
+    <dimen name="textsize_button">16sp</dimen>
+    <dimen name="textsize_small">12sp</dimen>
+    <dimen name="card_evaluation">7dp</dimen>
+    <dimen name="card_radius">5dp</dimen>
+    <dimen name="button_width">130dp</dimen>
+
+</resources>

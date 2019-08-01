@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".activities.ManageCollectionActivity">
+
+    <TextView
+        android:id="@+id/tvLastUpdate"
+        android:text="Last Update at : 19/08/2019"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        style="@style/normal_textview" />
+
+    <TextView
+        android:id="@+id/tv_representative"
+        android:text="CurrentRepresentative : John"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        style="@style/normal_textview" />
+    <TextView
+        android:id="@+id/tv_collection"
+        android:text="CurrentCollectionPoint : ISS"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        style="@style/normal_textview" />
+
+    <TextView
+        android:text="Choose Collection Point"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:textColor="@color/primary_green"
+        style="@style/normal_textview" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10dp">
+        <RadioButton
+            android:id="@+id/rb_point1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/point_1"/>
+        <RadioButton
+            android:id="@+id/rb_point2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/point_2"/>
+        <RadioButton
+            android:id="@+id/rb_point3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/point_3"/>
+        <RadioButton
+        android:id="@+id/rb_point4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/point_4"/>
+        <RadioButton
+            android:id="@+id/rb_point5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/point_5"/>
+        <RadioButton
+            android:id="@+id/rb_point6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/point_6"/>
+    </RadioGroup>
+    <Spinner
+        android:id="@+id/spin_representative"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/representative"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/margin_10dp"
+        android:layout_marginTop="20dp">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            android:text="@string/cancel"
+            style="@style/btn_with_border_style"/>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:elevation="@dimen/margin_5dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

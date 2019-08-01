@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.StockCardActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="280dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_5dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="@dimen/card_evaluation">
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/margin_10dp"
+            android:hint="@string/item_code"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/margin_15dp" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_code"
+        style="@style/normal_textview"
+        android:text="ItemCode: P085" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/normal_textview"
+        android:text="Description : Pencil2B" />
+
+    <TextView
+        android:id="@+id/tv_bin"
+        style="@style/normal_textview"
+        android:text="Bin : #A07" />
+
+    <!--Header-->
+    <android.support.v7.widget.CardView
+        style="@style/card_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        app:cardBackgroundColor="@color/primary_green"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/textview_style_secondary_title"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_weight="1.5"
+                android:text="Date" />
+
+            <TextView
+                style="@style/textview_style_secondary_title"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_weight="3"
+                android:text="Dept/Supplier" />
+
+            <TextView
+                style="@style/textview_style_secondary_title"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:text="Qty " />
+
+            <TextView
+                style="@style/textview_style_secondary_title"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:text="Total" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_stock_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

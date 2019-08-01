@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#49494C</color>
+    <color name="colorPrimaryDark">#373738</color>
+    <color name="colorAccent">#1E88E5</color>
+
+    <color name="vector_color">#33B35A</color>
+    <color name="primary_green">#33B35A</color>
+    <color name="hilight_green">#4160F860</color>
+    <color name="text_color_primary">#33B35A</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="border_color">#a3a39f9f</color>
+
+    <color name="status_pending">#304FFE</color>
+    <color name="status_appproved">#5BC418</color>
+    <color name="status_reject">#F00</color>
+    <color name="reject">#D50000</color>
+
+</resources>
