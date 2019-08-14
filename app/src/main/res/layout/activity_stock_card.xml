@@ -33,17 +33,17 @@
     <TextView
         android:id="@+id/tv_code"
         style="@style/normal_textview"
-        android:text="ItemCode: P085" />
+        android:text="ItemCode:" />
 
     <TextView
         android:id="@+id/tv_name"
         style="@style/normal_textview"
-        android:text="Description : Pencil2B" />
+        android:text="Description :" />
 
     <TextView
         android:id="@+id/tv_bin"
         style="@style/normal_textview"
-        android:text="Bin : #A07" />
+        android:text="Bin : " />
 
     <!--Header-->
     <android.support.v7.widget.CardView

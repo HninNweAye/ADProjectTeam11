@@ -1,5 +1,7 @@
 package sa48.team11.adproject.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,41 +13,46 @@ import sa48.team11.adproject.utils.Utils;
  * Created by hninnwe on 2019-07-24
  */
 public class Request implements Serializable {
-    private String employeeName,status;
+    @SerializedName("Id")
+    private int req_id;
+    @SerializedName("EmployeeName")
+    private String employeeName;
+    @SerializedName("Status")
+    private String status;
+    @SerializedName("Date")
     private Date date;
+    @SerializedName("Quantity")
     private int noOfItems;
-    private List<Item> itemList = new ArrayList<>();
 
-    public Request(String employeeName, Date date, String status,List<Item> itemList , int noOfItems) {
+    public Request(String employeeName, Date date, String status, int noOfItems) {
         this.employeeName = employeeName;
         this.date = date;
         this.status = status;
-        this.itemList = itemList;
         this.noOfItems = noOfItems;
     }
-    public Request(String employeeName, String date, String status,List<Item> itemList , int noOfItems) {
+
+    public Request(int req_id, String employeeName, String status, Date date, int noOfItems) {
+        this.req_id = req_id;
         this.employeeName = employeeName;
-        this.date = Utils.dateString(date);
         this.status = status;
-        this.itemList = itemList;
+        this.date = date;
         this.noOfItems = noOfItems;
     }
-    public List<Item> getItemList() {
-        return itemList;
+
+    public int getReq_id() {
+        return req_id;
     }
-
-
 
     public String getEmployeeName() {
         return employeeName;
     }
 
-
     public Date getDate() {
         return date;
     }
+
     public String getDateString() {
-        return Utils.dateString(date);
+        return date != null ? Utils.dateString(date) : " ";
     }
 
     public void setDate(Date date) {
@@ -60,4 +67,18 @@ public class Request implements Serializable {
         return noOfItems;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "req_id='" + req_id + '\'' +
+                ", employeeName='" + employeeName + '\'' +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", noOfItems=" + noOfItems +
+                '}';
+    }
 }

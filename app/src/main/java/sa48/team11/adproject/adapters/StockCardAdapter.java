@@ -13,6 +13,7 @@ import java.util.List;
 
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.models.StockCard;
+import sa48.team11.adproject.utils.Utils;
 
 /**
  * Created by hninnwe on 2019-07-31
@@ -59,10 +60,10 @@ public class StockCardAdapter extends RecyclerView.Adapter<StockCardAdapter.MyVi
             tvTotal =itemView.findViewById(R.id.tv_total);
         }
         public void bind(StockCard card) {
-            tvDate.setText(card.getDate());
+            tvDate.setText(Utils.shortDateString(card.getDate()));
             tvRefType.setText(card.getRefType());
             tvQuantity.setText(card.getQuantity());
-            tvTotal.setText(String.format("%s",card.getTotal()));
+            tvTotal.setText(String.format("%s",card.getBalance()));
         }
     }
 }

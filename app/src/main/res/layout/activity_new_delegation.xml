@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_end_date"/>
         <Spinner
-            android:id="@+id/spin_collection"
+            android:id="@+id/spin_representative"
             style="@style/spinner_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

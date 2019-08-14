@@ -28,45 +28,37 @@
             android:layout_height="wrap_content"
             android:entries="@array/category" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/ti_quantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edt_Quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/quantity"
-                android:inputType="text"
-                android:maxLines="1" />
-        </android.support.design.widget.TextInputLayout>
         <RadioGroup
             android:id="@+id/rg_reason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/rb_lost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Lost"/>
+                android:text="Lost" />
+
             <RadioButton
                 android:id="@+id/rb_broken"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Broken"/>
+                android:text="Broken" />
+
             <RadioButton
                 android:id="@+id/rb_gift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Free Gift"/>
+                android:text="Free Gift" />
+
             <RadioButton
                 android:id="@+id/rb_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other"/>
+                android:text="Other" />
         </RadioGroup>
 
         <android.support.design.widget.TextInputLayout
@@ -81,14 +73,36 @@
                 android:layout_height="wrap_content"
                 android:hint="Reason" />
         </android.support.design.widget.TextInputLayout>
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:elevation="@dimen/margin_5dp"
-            android:layout_marginBottom="@dimen/margin_10dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_10dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/ti_quantity"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_Quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/quantity"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:elevation="@dimen/margin_5dp"
+                android:text="@string/add" />
+        </LinearLayout>
     </LinearLayout>
 
     <!--Header-->
@@ -129,8 +143,8 @@
         android:id="@+id/rc_adj_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_5dp"
         android:layout_marginLeft="@dimen/margin_5dp"
+        android:layout_marginRight="@dimen/margin_5dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -138,23 +152,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="@dimen/margin_10dp"
-        android:layout_marginTop="10dp">
+        android:padding="@dimen/margin_10dp">
+
         <Button
             android:id="@+id/btn_reject"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
-            android:text="@string/reject"
-            android:background="@drawable/btn_reject_fill"
             android:layout_marginRight="@dimen/margin_10dp"
-            android:visibility="gone"
-            />
+            android:background="@drawable/btn_reject_fill"
+            android:text="@string/reject"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/btn_submit"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:elevation="@dimen/margin_5dp"/>
+            android:elevation="@dimen/margin_5dp"
+            android:text="@string/submit" />
 
     </LinearLayout>
 </LinearLayout>

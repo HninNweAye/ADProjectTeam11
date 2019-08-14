@@ -14,6 +14,7 @@ import java.util.List;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.models.Item;
 import sa48.team11.adproject.models.Request;
+import sa48.team11.adproject.models.RequestItem;
 
 /**
  * Created by hninnwe on 2019-07-31
@@ -21,13 +22,13 @@ import sa48.team11.adproject.models.Request;
 public class ReqDetailAdapter extends RecyclerView.Adapter<ReqDetailAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Item> itemList = new ArrayList<>();
+    private List<RequestItem> itemList = new ArrayList<>();
 
     public ReqDetailAdapter(Context context) {
         this.context = context;
     }
 
-    public void updateList(List<Item> itemList) {
+    public void updateList(List<RequestItem> itemList) {
         this.itemList = itemList;
         notifyDataSetChanged();
     }
@@ -56,8 +57,8 @@ public class ReqDetailAdapter extends RecyclerView.Adapter<ReqDetailAdapter.MyVi
             tvName =itemView.findViewById(R.id.tv_name);
             tvQuantity =itemView.findViewById(R.id.tv_quantity);
         }
-        public void bind(Item item) {
-            tvName.setText(item.getName());
+        public void bind(RequestItem item) {
+            tvName.setText(item.getDescription());
             tvQuantity.setText(String.format("%d",item.getQuantity()));
         }
     }

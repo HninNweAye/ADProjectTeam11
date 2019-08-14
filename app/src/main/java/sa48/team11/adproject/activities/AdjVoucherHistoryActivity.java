@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.adapters.AdjustmentListAdapter;
 import sa48.team11.adproject.listeners.IDatePickerListener;
-import sa48.team11.adproject.models.AdjItem;
 import sa48.team11.adproject.models.AdjVoucher;
-import sa48.team11.adproject.utils.Constants;
+import sa48.team11.adproject.retrofit.MyRetrofit;
+import sa48.team11.adproject.retrofit.ResponseList;
+import sa48.team11.adproject.retrofit.ApiClient;
+import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.utils.Utils;
 
 public class AdjVoucherHistoryActivity extends AppCompatActivity implements View.OnClickListener, IDatePickerListener {
@@ -30,18 +33,24 @@ public class AdjVoucherHistoryActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjustment_requests);
         loadUI();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();
     }
 
     private void loadData() {
-        List<AdjItem> items = new ArrayList<>();
-        items.add(new AdjItem("Pencil", "+5", "Free gift"));
-        items.add(new AdjItem("Stapler", "-5", "Broken"));
-        items.add(new AdjItem("Marker", "-5", "Lost"));
-        dataList.add(new AdjVoucher("20/08/2019", "001/00001/003", Constants.PENDING, items));
-        dataList.add(new AdjVoucher("10/08/2019", "001/00001/002", Constants.APPROVED, items));
-        dataList.add(new AdjVoucher("5/08/2019", "001/00001/001", Constants.REJECT, items));
-
+        ApiService service = ApiClient.getAPIService();
+             Call<ResponseList<AdjVoucher>> call = service.getAdjVoucherHistory(11236);
+                call.enqueue(new MyRetrofit<>(this, response -> {
+                    if (response.isSuccess()) {
+                        dataList.clear();
+                        dataList.addAll(response.getResultList());
+                        renderRecyclerView();
+                    }
+                }));
 
     }
 
@@ -51,7 +60,6 @@ public class AdjVoucherHistoryActivity extends AppCompatActivity implements View
         edtStartDate.setOnClickListener(this);
         edtEndDate.setOnClickListener(this);
         findViewById(R.id.fab).setOnClickListener(this);
-        renderRecyclerView();
     }
 
     private void renderRecyclerView() {

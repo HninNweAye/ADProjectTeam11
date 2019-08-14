@@ -59,8 +59,8 @@ public class AdjVoucherDetailAdapter extends RecyclerView.Adapter<AdjVoucherDeta
             tvReson =itemView.findViewById(R.id.tv_reason);
         }
         public void bind(AdjItem item) {
-            tvName.setText(item.getCode());
-            tvQuantity.setText(item.getQuantity());
+            tvName.setText(item.getDescription());
+            tvQuantity.setText(item.getQuantityWithSign());
             tvReson.setText(item.getReason());
         }
     }

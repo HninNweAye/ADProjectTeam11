@@ -62,21 +62,21 @@ public class AdjustmentListAdapter extends RecyclerView.Adapter<AdjustmentListAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvVoucherId, tvNoOfItems, tvDate, tvStatus;
+        private TextView tvVoucherId,  tvDate, tvStatus,tvNoItems;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvVoucherId = itemView.findViewById(R.id.tv_emp_name);
-            tvNoOfItems = itemView.findViewById(R.id.tv_no_items);
-            tvDate = itemView.findViewById(R.id.tv_date);
+            tvDate = itemView.findViewById(R.id.tv_no_items);
             tvStatus = itemView.findViewById(R.id.tv_status);
-            tvNoOfItems.setVisibility(View.INVISIBLE);
+            tvNoItems = itemView.findViewById(R.id.tv_no_items);
         }
 
         public void bind(AdjVoucher request) {
-            tvVoucherId.setText(String.format("VoucherID  : %s ", request.getVoucherId()));
+            tvVoucherId.setText(String.format("VoucherID  : %03d ", request.getVoucherId()));
             tvDate.setText(request.getDateString());
             tvStatus.setText(request.getStatus());
+            tvNoItems.setText(String.format("Total No of Items : %d",request.getTotalQuantity()));
             changeTextColor(request.getStatus());
 
         }

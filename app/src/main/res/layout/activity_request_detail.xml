@@ -25,13 +25,13 @@
             <TextView
                 android:text="Stationary Name"
                 android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_weight="3"
-                style="@style/textview_style_secondary_title" />
+                style="@style/textview_style_secondary_title"
+                android:layout_weight="3"/>
             <TextView
                 android:text="Quantity"
                 android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_weight="1"
-                style="@style/textview_style_secondary_title" />
+                style="@style/textview_style_secondary_title"
+                android:layout_weight="1" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

@@ -1,31 +1,48 @@
 package sa48.team11.adproject.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 /**
  * Created by hninnwe on 2019-07-31
  */
 public class StockCard {
-    private String date,refType,quantity,total;
+    @SerializedName("RefType") private String refType;
+    @SerializedName("Date") private Date date;
+    @SerializedName("Qty") private int quantity;
+    @SerializedName("Balance") private int balance;
 
-    public StockCard(String date, String refType, String quantity, String total) {
-        this.date = date;
+    public StockCard(String refType, Date date, int quantity, int balance) {
         this.refType = refType;
+        this.date = date;
         this.quantity = quantity;
-        this.total = total;
-    }
-
-    public String getDate() {
-        return date;
+        this.balance = balance;
     }
 
     public String getRefType() {
         return refType;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public Date getDate() {
+        return date;
     }
 
-    public String getTotal() {
-        return total;
+    public String getQuantity() {
+        return quantity>0 ? "+"+quantity : ""+quantity;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    @Override
+    public String toString() {
+        return "StockCard{" +
+                "refType='" + refType + '\'' +
+                ", date='" + date + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }

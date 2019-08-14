@@ -5,56 +5,74 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import sa48.team11.adproject.R;
-import sa48.team11.adproject.adapters.ReqDetailAdapter;
 import sa48.team11.adproject.adapters.StockCardAdapter;
+import sa48.team11.adproject.models.Item;
+import sa48.team11.adproject.retrofit.MyRetrofit;
+import sa48.team11.adproject.retrofit.ResponseListAndObj;
 import sa48.team11.adproject.models.StockCard;
+import sa48.team11.adproject.retrofit.ApiClient;
+import sa48.team11.adproject.retrofit.ApiService;
+import sa48.team11.adproject.utils.Utils;
 
 public class StockCardActivity extends AppCompatActivity implements View.OnClickListener {
     private List<StockCard> list = new ArrayList<>();
+    private TextView   tvCode,tvBin,tvName;
+    private EditText edtSearch;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_card);
+        loadData("P085");
         loadUI();
-        loadData();
     }
 
-    private void loadData() {
-        list.add(new StockCard("10/08/19","ADJ00010","+6","502"));
-        list.add(new StockCard("02/08/19","BANE","+200","500"));
-        list.add(new StockCard("05/08/19","ADJ00009","-4","496"));
-
+    private void loadData(String itemCode) {
+        ApiService service = ApiClient.getAPIService();
+             Call<ResponseListAndObj<StockCard, Item>> call = service.getStockCard(itemCode);
+                call.enqueue(new MyRetrofit<>(this, response -> {
+                    if (response.isSuccess()) {
+                        list = response.getResultList();
+                        bindData(response.getResObj());
+                        if(list != null) renderRecyclerView();
+                    }else{
+                        Utils.showAlert(R.string.alert_error,R.string.item_code_error,StockCardActivity.this);
+                    }
+                }));
     }
+
+    private void bindData(Item resObj) {
+        tvCode.setText(String.format("ItemCode    : %s ",resObj.getCode()));
+        tvName.setText(String.format("Name    : %s ", resObj.getDescription()));
+        tvBin.setText(String.format("Bin      : #%s ", resObj.getBin()));
+    }
+
 
     private void loadUI() {
-        TextView tvName  = findViewById(R.id.tv_name);
-        TextView tvCode  = findViewById(R.id.tv_code);
-        TextView tvBin  = findViewById(R.id.tv_bin);
-        tvCode.setText(String.format("ItemCode    : %s ", "P085"));
-        tvName.setText(String.format("Name    : %s ", "John"));
-        tvBin.setText(String.format("Bin    : %s ", "#A07"));
-        EditText edtSearch = findViewById(R.id.edt_search);
+         tvName  = findViewById(R.id.tv_name);
+         tvCode  = findViewById(R.id.tv_code);
+         tvBin  = findViewById(R.id.tv_bin);
+        edtSearch = findViewById(R.id.edt_search);
         edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                loadData(edtSearch.getText().toString());
                // performSearch();
                 return true;
             }
             return false;
         });
 
-        renderRecyclerView();
     }
 
     private void renderRecyclerView() {

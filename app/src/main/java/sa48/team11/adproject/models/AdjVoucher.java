@@ -1,5 +1,7 @@
 package sa48.team11.adproject.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,31 +13,27 @@ import sa48.team11.adproject.utils.Utils;
  * Created by hninnwe on 2019-07-31
  */
 public class AdjVoucher  implements Serializable {
-    private String voucherId,status;
-    private Date date;
-    private List<AdjItem> itemList = new ArrayList<>();
+    @SerializedName("Id") private int voucherId;
+    @SerializedName("Status") private String status;
+    @SerializedName("Date") private Date date;
+    @SerializedName("TotalQuantity") private int totalQuantity;
 
-    public AdjVoucher(Date date, String voucherId, String status, List<AdjItem> itemList) {
+    public AdjVoucher(Date date, int voucherId, String status,int totalQuantity) {
         this.date = date;
         this.voucherId = voucherId;
         this.status = status;
-        this.itemList = itemList;
+        this.totalQuantity = totalQuantity;
     }
-    public AdjVoucher(String date, String voucherId, String status, List<AdjItem> itemList) {
-        this.date = Utils.dateString(date);
-        this.voucherId = voucherId;
-        this.status = status;
-        this.itemList = itemList;
-    }
+
     public String getDateString() {
-        return Utils.dateString(date);
+        return date == null ? "" : Utils.dateString(date);
     }
     public Date getDate() {
         return date;
     }
 
 
-    public String getVoucherId() {
+    public int getVoucherId() {
         return voucherId;
     }
 
@@ -43,7 +41,7 @@ public class AdjVoucher  implements Serializable {
         return status;
     }
 
-    public List<AdjItem> getItemList() {
-        return itemList;
+    public int getTotalQuantity() {
+        return totalQuantity;
     }
 }
