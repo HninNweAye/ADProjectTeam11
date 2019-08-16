@@ -22,6 +22,12 @@ public class Retrieval {
     @SerializedName("RetrievalQty")
     private int actualQty;
 
+    public Retrieval(String description, int qty, int actualQty) {
+        this.description = description;
+        this.qty = qty;
+        this.actualQty = actualQty;
+    }
+
     public Retrieval(String binNo, Date date, String description, String itemId, int qty, int retrievalQty) {
         this.binNo = binNo;
         this.date = date;

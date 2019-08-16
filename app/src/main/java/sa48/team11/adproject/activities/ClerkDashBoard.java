@@ -6,6 +6,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import sa48.team11.adproject.R;
+import sa48.team11.adproject.models.Disbursement;
 import sa48.team11.adproject.utils.Utils;
 
 public class ClerkDashBoard extends AppCompatActivity implements View.OnClickListener {
@@ -38,7 +39,7 @@ public class ClerkDashBoard extends AppCompatActivity implements View.OnClickLis
                 Utils.goNext(ClerkDashBoard.this, StockCardActivity.class);
                 break;
             case R.id.card_disbursement:
-                Utils.goNext(ClerkDashBoard.this, DeptHeadDashBoard.class);
+                Utils.goNext(ClerkDashBoard.this, DisbursementActivity.class);
                 break;
             case R.id.card_retrival:
                 Utils.goNext(ClerkDashBoard.this,RetrievalListActivity.class);

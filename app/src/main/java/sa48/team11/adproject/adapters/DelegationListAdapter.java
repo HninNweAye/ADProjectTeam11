@@ -1,6 +1,7 @@
 package sa48.team11.adproject.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.activities.DelegationListActivity;
+import sa48.team11.adproject.listeners.IDelegationCancelListener;
 import sa48.team11.adproject.models.Delegation;
 import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
@@ -33,8 +36,10 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
     private Context context;
     private List<Delegation> delegationList = new ArrayList<>();
     private Bundle bdl = new Bundle();
+    private IDelegationCancelListener listener;
 
-    public DelegationListAdapter(Context context) {
+    public DelegationListAdapter(Context context,IDelegationCancelListener listener) {
+        this.listener = listener;
         this.context = context;
     }
 
@@ -55,18 +60,29 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
 
         myViewHolder.bind(delegationList.get(position));
         myViewHolder.btnCancel.setOnClickListener(v -> {
-            ApiService service = ApiClient.getAPIService();
-            Call<BaseResponse> call = service.cancelDelegation(delegationList.get(position).getId());
-            call.enqueue(new MyRetrofit<>((DelegationListActivity)context, res -> {
-                Log.d("Res",res.toString());
-                Toast.makeText(context, "Rsult"+res.getMessage(), Toast.LENGTH_SHORT).show();
-                if(res.isSuccess()) {
-                    delegationList.get(position).setStatus(false);
-                    notifyDataSetChanged();
-                }
-            }));
-
+            Utils.showAlert(true, R.string.alert_confirm, R.string.cancel_delegation_confirm, (DelegationListActivity)context, (dialog, which) -> {
+                cancelDelegation(position);
+            });
         });
+    }
+
+    private void cancelDelegation(int pos) {
+
+        ApiService service = ApiClient.getAPIService();
+        Call<BaseResponse> call = service.cancelDelegation(delegationList.get(pos).getId());
+        Toast.makeText(context, "Result"+delegationList.get(pos).getId(), Toast.LENGTH_SHORT).show();
+
+        call.enqueue(new MyRetrofit<>((DelegationListActivity)context, res -> {
+            Log.d("Res",res.toString());
+            if(res.isSuccess()) {
+                Utils.showAlert(R.string.cancel_delegation,R.string.success,(DelegationListActivity)context);
+                delegationList.get(pos).setStatus(false);
+                notifyDataSetChanged();
+                listener.cancelDelegation(pos);
+            }else{
+                Utils.showAlert(R.string.cancel_delegation,R.string.alert_fail,(DelegationListActivity)context);
+            }
+        }));
     }
 
     @Override
@@ -87,11 +103,13 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
         }
 
         public void bind(Delegation del) {
-            tvEmpName.setText(String.format("Name    : %d ", del.getId()));
+            tvEmpName.setText(String.format("Name    : %s ", del.getEmpName()));
             tvStartDate.setText(String.format("StartDate  : %s ", Utils.dateString(del.getStartDate())));
             tvEndDate.setText(String.format("EndDate  : %s ",Utils.dateString(del.getEndDate())));
-            if(del.getId() == 2){
+            if(del.isActive()){
                 btnCancel.setVisibility(View.VISIBLE);
+            }else{
+                btnCancel.setVisibility(View.INVISIBLE);
             }
         }
 

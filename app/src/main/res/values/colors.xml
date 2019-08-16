@@ -17,4 +17,6 @@
     <color name="status_reject">#F00</color>
     <color name="reject">#D50000</color>
 
+    <color name="dark_green">#2E7D32</color>
+
 </resources>

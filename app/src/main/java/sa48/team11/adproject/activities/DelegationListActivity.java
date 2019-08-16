@@ -81,7 +81,7 @@ public class DelegationListActivity extends AppCompatActivity implements View.On
         rc_delegation_list.setHasFixedSize(true);
         rc_delegation_list.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this,R.anim.recycler_layout_anim));
         rc_delegation_list.setLayoutManager(new LinearLayoutManager(this));
-        DelegationListAdapter adapter= new DelegationListAdapter(this);
+        DelegationListAdapter adapter= new DelegationListAdapter(this,pos ->dataList.get(pos).setStatus(false));
         rc_delegation_list.setAdapter(adapter);
         adapter.updateList(dataList);
     }

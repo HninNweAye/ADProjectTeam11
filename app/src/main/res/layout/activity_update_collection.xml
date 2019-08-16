@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".activities.ManageCollectionActivity">
+
+
+    <TextView
+        android:id="@+id/tv_collection"
+        style="@style/tv_disburse_header"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:text="CurrentCollectionPoint : ManagementSchool"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_current_time"
+        style="@style/tv_disburse_header"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:text="Current CollectionTime : 09:00 AM "
+        android:textStyle="bold" />
+
+
+    <TextView
+        style="@style/normal_textview"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:text="Choose Collection Point" />
+
+    <RadioGroup
+        android:id="@+id/rb_collection_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10dp">
+
+        <RadioButton
+            android:id="@+id/rb_point1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint1" />
+
+        <RadioButton
+            android:id="@+id/rb_point2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint2" />
+
+        <RadioButton
+            android:id="@+id/rb_point3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint3" />
+
+        <RadioButton
+            android:id="@+id/rb_point4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint4" />
+
+        <RadioButton
+            android:id="@+id/rb_point5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint5" />
+
+        <RadioButton
+            android:id="@+id/rb_point6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CollectionPoint6" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_collect_time"
+        style="@style/normal_textview"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        android:text="CollectionTime : 11:30 AM " />
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:elevation="@dimen/margin_5dp"
+        android:text="Update" />
+
+
+</LinearLayout>

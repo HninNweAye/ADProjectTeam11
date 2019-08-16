@@ -1,5 +1,6 @@
 package sa48.team11.adproject.retrofit;
 
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,8 +16,10 @@ import sa48.team11.adproject.models.Category;
 import sa48.team11.adproject.models.CollectionPoint;
 import sa48.team11.adproject.models.CollectionPointAndRep;
 import sa48.team11.adproject.models.Delegation;
+import sa48.team11.adproject.models.Disbursement;
 import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.models.Item;
+import sa48.team11.adproject.models.ItemDisburse;
 import sa48.team11.adproject.models.ItemSpinner;
 import sa48.team11.adproject.models.Request;
 import sa48.team11.adproject.models.RequestItem;
@@ -48,7 +51,7 @@ public interface ApiService {
     Call<BaseResponse> cancelDelegation(@Path("delegationId") int delegationId);
 
     @GET("departments/collectionpoints/representative")
-    Call<ResponseListAndObj<CollectionPoint, CollectionPointAndRep>> getCollectionPointsAndDeptRep();
+    Call<ResponseObj<CollectionPointAndRep>> getCollectionPointsAndDeptRep();
 
     @PUT("departments/collectionpoints/{pointId}/representative/{repId}")
     Call<BaseResponse> updateCollectionPointAndRep(@Path("pointId") int pointId, @Path("repId") int repId);
@@ -57,10 +60,17 @@ public interface ApiService {
     Call<ResponseList<Request>> getRequestHistory();
 
     @GET("departments/requests/{reqId}/detail")
-    Call<ResponseList<RequestItem>> getRequestDetails(@Path("reqId") String reqId);
+    Call<ResponseList<RequestItem>> getRequestDetails(@Path("reqId") int reqId);
 
     @PATCH("departments/requests/{reqId}")
-    Call<BaseResponse> updateRequestStatus(@Path("reqId") String reqId,@Body Request req);
+    Call<BaseResponse> updateRequestStatus(@Body Request req);
+
+
+    @PUT("representative/collectionpoints/{pointId}")
+    Call<BaseResponse> updateCollectionPoint(@Path("pointId") int pointId);
+
+    @GET("representative/disbursements/{deptId}")
+    Call<ResponseListAndObj<ItemDisburse, CollectionPoint>> getDisbursementInfo(@Path("deptId") String deptId);
 
 
     //StoreClerk API
@@ -79,7 +89,11 @@ public interface ApiService {
     @GET("clerk/retrievals")
     Call<ResponseList<Retrieval>> getRetrievalList();
 
+    @GET("clerk/{clerkId}/disbursements")
+    Call<ResponseList<Disbursement>> getDisbursementList(@Path("clerkId") int clerkID);
 
+    @GET("clerk/{clerkId}/collectionPoints")
+    Call<ResponseList<CollectionPoint>> getCollectionPointByClerk(@Path("clerkId") int clerkID);
 
 }
 

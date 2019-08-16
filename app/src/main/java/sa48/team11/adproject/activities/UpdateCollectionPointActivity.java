@@ -1,7 +1,7 @@
 package sa48.team11.adproject.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,26 +15,23 @@ import java.util.List;
 
 import retrofit2.Call;
 import sa48.team11.adproject.R;
-import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.models.CollectionPoint;
 import sa48.team11.adproject.models.CollectionPointAndRep;
 import sa48.team11.adproject.models.Employee;
+import sa48.team11.adproject.retrofit.ApiClient;
+import sa48.team11.adproject.retrofit.ApiService;
+import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
 import sa48.team11.adproject.retrofit.ResponseListAndObj;
-import sa48.team11.adproject.retrofit.ApiClient;
-import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.ResponseObj;
 import sa48.team11.adproject.utils.Utils;
 
-public class ManageCollectionActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
-    private TextView tvCollectTime, tv_dept_rep, tv_collection;
-    private Spinner spin_rep;
+public class UpdateCollectionPointActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+    private TextView tvCollectTime, tv_collection,tv_current_col_time;
     private List<CollectionPoint> cPointList = new ArrayList<>();
-    private List<Employee> empList = new ArrayList<Employee>();
-    private int repId=-1, pointId=-1;
+    private int  pointId=-1;
     private CollectionPoint cp;
-//todo Faster start up
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +52,8 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
             if (response.isSuccess()) {
                 CollectionPointAndRep obj = response.getResObj();
                 tv_collection.setText(String.format("Current CollectionPoint : %s",obj.getPointName()));
-                tv_dept_rep.setText(String.format("Current Representative : %s",obj.getRepName()));
-                repId = obj.getRepId();
+                tv_current_col_time.setText(String.format("Current CollectionTime : %s",obj.getCollectionTime()));
                 pointId = obj.getPointId();
-                if (empList.size() > 0) spin_rep.setSelection(findEmp(empList, repId));
                 if (cPointList.size() > 0) changeRadioSelection();
             }
         }));
@@ -71,13 +66,7 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
                 bindRadioButton();
             }
         }));
-        Call<ResponseList<Employee>> call2 = service.getEmployeeList("COMM");
-        call2.enqueue(new MyRetrofit<>(this, response -> {
-            if (response.isSuccess()) {
-                empList.addAll(response.getResultList());
-                bindSpinner();
-            }
-        }));
+
 
 
     }
@@ -90,24 +79,6 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
                 ((RadioButton) findViewById(ids[i])).setChecked(true);
             }
         }
-    }
-
-    private int findEmp(List<Employee> empList,int repId) {
-        for (int i = 0; i < empList.size(); i++) {
-            if (empList.get(i).getId() == repId) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private void bindSpinner() {
-        spin_rep = findViewById(R.id.spin_representative);
-        ArrayAdapter spinnerAdapter = new ArrayAdapter(this, R.layout.adapter_spin_row, empList);
-        spin_rep.setAdapter(spinnerAdapter);
-        if(repId != -1)
-        spin_rep.setSelection(findEmp(empList,repId));
-//        spin_rep.setOnItemSelectedListener(this);
     }
 
     private void bindRadioButton() {
@@ -127,11 +98,10 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
     private void loadUI() {
 
         tvCollectTime = findViewById(R.id.tv_collect_time);
-        tv_dept_rep = findViewById(R.id.tv_representative);
         tv_collection = findViewById(R.id.tv_collection);
+        tv_current_col_time = findViewById(R.id.tv_current_time);
 
-        findViewById(R.id.btn_cancel).setOnClickListener(this);
-        findViewById(R.id.btn_submit).setOnClickListener(this);
+        findViewById(R.id.btn_update).setOnClickListener(this);
         ((RadioGroup) findViewById(R.id.rb_collection_point)).setOnCheckedChangeListener(this);
         ((RadioButton) findViewById(R.id.rb_point1)).setChecked(true);
     }
@@ -139,8 +109,8 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_submit:
-                submitCollectionPointAndRep();
+            case R.id.btn_update:
+                submitCollectionPoint();
                 break;
             case R.id.btn_cancel:
                 finish();
@@ -148,18 +118,17 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
         }
     }
 
-    private void submitCollectionPointAndRep() {
-        Employee emp = (Employee) spin_rep.getSelectedItem();
+    private void submitCollectionPoint() {
              ApiService service = ApiClient.getAPIService();
-                  Call<BaseResponse> call = service.updateCollectionPointAndRep(pointId,emp.getId());
+                  Call<BaseResponse> call = service.updateCollectionPoint(pointId);
                      call.enqueue(new MyRetrofit<>(this, response -> {
                          if (response.isSuccess()) {
-                             Utils.showAlert(R.string.manage_collection, R.string.success, ManageCollectionActivity.this, (dialog, which) -> {
+                             Utils.showAlert(R.string.alert_update_collection, R.string.success, UpdateCollectionPointActivity.this, (dialog, which) -> {
                                  tv_collection.setText(String.format("Current CollectionPoint : %s",cp.getName()));
-                                 tv_dept_rep.setText(String.format("Current Representative : %s",emp.getName()));
+                                 tv_current_col_time.setText(String.format("Current CollectionTime : %s",cp.getCollectTime()));
                              });
                          }else{
-                             Utils.showAlert(R.string.alert_error,R.string.alert_something_worng,ManageCollectionActivity.this);
+                             Utils.showAlert(R.string.alert_error,R.string.alert_something_worng, UpdateCollectionPointActivity.this);
                          }
                      }));
     }
@@ -190,7 +159,6 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
     }
     private void selectCollectionPoint(int rb){
         if (cPointList.size() != 6) return;
-
             cp = cPointList.get(rb);
         pointId = cp.getId();
             tvCollectTime.setText(String.format("CollectionTime   :  %s", cp.getCollectTime()));

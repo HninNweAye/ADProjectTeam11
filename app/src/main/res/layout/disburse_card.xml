@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_5dp"
+    android:layout_marginRight="@dimen/margin_5dp"
+    android:layout_marginBottom="@dimen/margin_10dp"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="@dimen/card_radius">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_dept"
+            style="@style/tv_disburse_header"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_toLeftOf="@id/ibtn_arrow" />
+
+        <TextView
+            android:id="@+id/tv_representative"
+            style="@style/tv_disburse_header"
+            android:layout_below="@id/tv_dept"
+            android:paddingBottom="@dimen/margin_5dp"
+            android:layout_toLeftOf="@id/ibtn_arrow" />
+
+        <ImageButton
+            android:id="@+id/ibtn_arrow"
+            android:layout_width="65dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:src="@drawable/ic_arrow_down" />
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_representative"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/itemLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_representative"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/row_textview2"
+                        android:layout_weight="2"
+                        android:text="Item"
+                        android:textSize="@dimen/textsize_disburse_item"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/tv_disburse_row"
+                        android:layout_weight="1"
+                        android:text="Needed"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/tv_disburse_row"
+                        android:layout_weight="1"
+                        android:text="Actual"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/itemLinear"
+                android:background="@color/border_color" />
+            <!--call and update button layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/margin_5dp"
+                android:paddingBottom="@dimen/margin_5dp">
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Call"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/primary_green"
+                    android:textSize="@dimen/textsize_normal" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="30dp"
+                    android:background="@color/border_color" />
+
+                <TextView
+                    android:id="@+id/tv_update"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Update"
+                    android:textColor="@color/primary_green"
+                    android:textSize="@dimen/textsize_normal" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

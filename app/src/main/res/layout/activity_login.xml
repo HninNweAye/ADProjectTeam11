@@ -46,6 +46,8 @@
                     android:id="@+id/edt_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="@dimen/margin_5dp"
                     android:hint="@string/user_name" />
@@ -62,6 +64,7 @@
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:drawableLeft="@drawable/ic_password"
                     android:drawablePadding="@dimen/margin_5dp"
                     android:hint="@string/password" />

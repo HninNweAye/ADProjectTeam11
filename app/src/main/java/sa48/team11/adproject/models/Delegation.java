@@ -60,11 +60,12 @@ public class Delegation {
         return empName == null ? "" : empName;
     }
 
-    public boolean isPending() {
+    public boolean isActive() {
        return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
     }
+
 }

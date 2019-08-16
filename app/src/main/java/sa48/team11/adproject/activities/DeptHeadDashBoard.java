@@ -33,7 +33,7 @@ public class DeptHeadDashBoard extends AppCompatActivity implements View.OnClick
                 Utils.goNext(DeptHeadDashBoard.this, ManageRequestActivity.class);
                 break;
             case R.id.card_manage_delegation:
-                Utils.goNext(DeptHeadDashBoard.this, NewDelegationActivity.class);
+                Utils.goNext(DeptHeadDashBoard.this, DelegationListActivity.class);
                 break;
             case R.id.card_manage_collection:
                 Utils.goNext(DeptHeadDashBoard.this, ManageCollectionActivity.class);

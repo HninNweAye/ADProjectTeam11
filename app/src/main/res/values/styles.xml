@@ -55,7 +55,11 @@
         <item name="android:textSize">@dimen/textsize_normal</item>
         <item name="android:layout_margin">@dimen/margin_5dp</item>
     </style>
-
+   <style name="tv_disbursement_point" parent="tv_title_secondary">
+       <item name="android:textSize">@dimen/textsize_normal</item>
+       <item name="android:gravity">left</item>
+       <item name="android:padding">5dp</item>
+   </style>
     <style name="card_adapter">
         <item name="android:background">@android:color/white</item>
         <item name="android:clickable">true</item>
@@ -106,10 +110,22 @@
         <item name="android:textSize">@dimen/textsize_normal</item>
         <item name="android:padding">@dimen/margin_5dp</item>
     </style>
+    <style name="tv_disburse_row" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/textsize_disburse_item</item>
+    </style>
     <style name="row_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/textsize_normal</item>
+    </style>
+    <style name="tv_disburse_header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textsize_normal</item>
+        <item name="android:paddingLeft">5dp</item>
     </style>
 
     <style name="spinner_style" parent="Widget.AppCompat.ListView.DropDown">
@@ -144,4 +160,5 @@
     </style>
 
     <dimen name="form_margin">15dp</dimen>
+    <dimen name="textsize_disburse_item">14sp</dimen>
 </resources>

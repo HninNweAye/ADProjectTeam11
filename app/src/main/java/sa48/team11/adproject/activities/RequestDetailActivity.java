@@ -36,13 +36,15 @@ public class RequestDetailActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_detail);
+        request = (Request) getIntent().getExtras().get(Constants.DETAIL);
+
         loadData();
         loadUI();
     }
 
     private void loadData() {
         ApiService service = ApiClient.getAPIService();
-             Call<ResponseList<RequestItem>> call = service.getRequestDetails("COMM-111-100");
+             Call<ResponseList<RequestItem>> call = service.getRequestDetails(request.getReq_id());
                 call.enqueue(new MyRetrofit<>(this, response -> {
                     if (response.isSuccess()) {
                         List<RequestItem> dataList = response.getResultList();
@@ -52,7 +54,6 @@ public class RequestDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     private void loadUI() {
-        request = (Request) getIntent().getExtras().get(Constants.DETAIL);
         LinearLayout buttonLayout = findViewById(R.id.button_layout);
         TextView tvName  = findViewById(R.id.tv_name);
         tvName.setText(String.format("Name    : %s ", request.getEmployeeName()));
@@ -90,7 +91,7 @@ public class RequestDetailActivity extends AppCompatActivity implements View.OnC
     private void submitStatus(String status) {
         request.setStatus(status);
         ApiService service = ApiClient.getAPIService();
-        Call<BaseResponse> call = service.updateRequestStatus("COMM",request);
+        Call<BaseResponse> call = service.updateRequestStatus(request);
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 Utils.showAlert(R.string.manage_request, R.string.success, RequestDetailActivity.this, (dialog, which) -> finish());

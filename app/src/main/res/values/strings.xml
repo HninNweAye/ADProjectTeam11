@@ -42,6 +42,7 @@
     <string name="add">Add</string>
     <string name="alert_sorry">Sorry</string>
     <string name="alert_something_worng">SomethingWrong!\nCheckInternetConnection</string>
+    <string name="alert_fail">Fail.SomethingWrong!</string>
     <string name="alert_date_req">Please choose date</string>
     <string name="new_delegation">CreateDelegation</string>
     <string name="success">\t\tSuccess</string>
@@ -52,6 +53,14 @@
     <string name="confirm_req_status">Are you sure ?</string>
     <string name="approve_confirm">Are you sure to approve the request?</string>
     <string name="reject_confirm">Are you sure to reject the request?</string>
+    <string name="confirm">Confirm</string>
+    <string name="update">Update</string>
+    <string name="alert_update_collection">Updating Collection Point</string>
+    <string name="update_collection">Update Collection Point</string>
+    <string name="cancel_delegation_confirm">Are you sure to this cancel delegation?</string>
+    <string name="cancel_delegation">Cancel Delegation</string>
+    <string name="confirm_disbursement">Confirm Disbursement</string>
+    <string name="list_not_ready">Opps!\nDisbursement List is not ready yet!!</string>
 
     <string-array name="collection_point">
         <item>Select Collection Point</item>
