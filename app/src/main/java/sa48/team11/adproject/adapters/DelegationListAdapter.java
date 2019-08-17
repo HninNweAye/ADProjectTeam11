@@ -22,10 +22,12 @@ import sa48.team11.adproject.R;
 import sa48.team11.adproject.activities.DelegationListActivity;
 import sa48.team11.adproject.listeners.IDelegationCancelListener;
 import sa48.team11.adproject.models.Delegation;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 /**
@@ -37,8 +39,9 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
     private List<Delegation> delegationList = new ArrayList<>();
     private Bundle bdl = new Bundle();
     private IDelegationCancelListener listener;
-
+    private Employee currentUser;
     public DelegationListAdapter(Context context,IDelegationCancelListener listener) {
+        currentUser =((App) context.getApplicationContext()).getUser();
         this.listener = listener;
         this.context = context;
     }
@@ -69,7 +72,7 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
     private void cancelDelegation(int pos) {
 
         ApiService service = ApiClient.getAPIService();
-        Call<BaseResponse> call = service.cancelDelegation(delegationList.get(pos).getId());
+        Call<BaseResponse> call = service.cancelDelegation(currentUser.getId(),delegationList.get(pos));
         Toast.makeText(context, "Result"+delegationList.get(pos).getId(), Toast.LENGTH_SHORT).show();
 
         call.enqueue(new MyRetrofit<>((DelegationListActivity)context, res -> {
@@ -108,6 +111,7 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
             tvEndDate.setText(String.format("EndDate  : %s ",Utils.dateString(del.getEndDate())));
             if(del.isActive()){
                 btnCancel.setVisibility(View.VISIBLE);
+                listener.hideCreateDelegationButton();
             }else{
                 btnCancel.setVisibility(View.INVISIBLE);
             }

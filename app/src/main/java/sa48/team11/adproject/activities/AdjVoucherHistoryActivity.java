@@ -17,10 +17,12 @@ import sa48.team11.adproject.R;
 import sa48.team11.adproject.adapters.AdjustmentListAdapter;
 import sa48.team11.adproject.listeners.IDatePickerListener;
 import sa48.team11.adproject.models.AdjVoucher;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 public class AdjVoucherHistoryActivity extends AppCompatActivity implements View.OnClickListener, IDatePickerListener {
@@ -42,8 +44,9 @@ public class AdjVoucherHistoryActivity extends AppCompatActivity implements View
     }
 
     private void loadData() {
+        Employee user = ((App)getApplicationContext()).getUser();
         ApiService service = ApiClient.getAPIService();
-             Call<ResponseList<AdjVoucher>> call = service.getAdjVoucherHistory(11236);
+             Call<ResponseList<AdjVoucher>> call = service.getAdjVoucherHistory(user.getId());
                 call.enqueue(new MyRetrofit<>(this, response -> {
                     if (response.isSuccess()) {
                         dataList.clear();

@@ -8,6 +8,7 @@ public class Delegation {
     @SerializedName("Id") private int id;//delegationId
     @SerializedName("EmployeeId") private int empId;
     @SerializedName("EmployeeName") private String empName;
+    @SerializedName("Email") private String email;
     @SerializedName("Status") private boolean status;
     @SerializedName("StartDate") private Date startDate;
     @SerializedName("EndDate") private Date endDate;
@@ -21,8 +22,10 @@ public class Delegation {
         this.empName = name;
         this.reason = reason;
     }
-    public Delegation(int empId, Date startDate, Date endDate,String reason) {
+    public Delegation(int empId,String empName,String email, Date startDate, Date endDate,String reason) {
         this.empId = empId;
+        this.empName = empName;
+        this.email = email;
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
@@ -34,6 +37,10 @@ public class Delegation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public int getEmpId() {

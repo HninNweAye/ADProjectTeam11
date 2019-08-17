@@ -25,6 +25,7 @@ import sa48.team11.adproject.adapters.AdjVoucherDetailAdapter;
 import sa48.team11.adproject.models.AdjItem;
 import sa48.team11.adproject.models.AdjVoucher;
 import sa48.team11.adproject.models.Category;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.models.Item;
 import sa48.team11.adproject.models.ItemSpinner;
 import sa48.team11.adproject.retrofit.ApiClient;
@@ -33,6 +34,7 @@ import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
 import sa48.team11.adproject.retrofit.ResponseObj;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 public class AdjVoucherCreateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -44,11 +46,12 @@ public class AdjVoucherCreateActivity extends AppCompatActivity implements Adapt
     private AdjVoucherDetailAdapter adapter;
     private Spinner spinItem, spinCategory;
     private String reason = "Lost";
-
+    private Employee currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adj_voucher);
+        currentUser =((App) getApplicationContext()).getUser();
         loadData();
         loadUI();
     }
@@ -174,7 +177,7 @@ public class AdjVoucherCreateActivity extends AppCompatActivity implements Adapt
             return;
         }
         ApiService service = ApiClient.getAPIService();
-        Call<BaseResponse> call = service.createAdjVoucher(11236, adjItemList);
+        Call<BaseResponse> call = service.createAdjVoucher(currentUser.getId(), adjItemList);
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 Utils.showAlert(R.string.create_adj_voucher, R.string.success, AdjVoucherCreateActivity.this, true);

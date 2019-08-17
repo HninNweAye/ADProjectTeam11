@@ -15,16 +15,16 @@ import java.util.List;
 
 import retrofit2.Call;
 import sa48.team11.adproject.R;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.models.CollectionPoint;
 import sa48.team11.adproject.models.CollectionPointAndRep;
-import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
-import sa48.team11.adproject.retrofit.ResponseListAndObj;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.ResponseObj;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 public class ManageCollectionActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -34,11 +34,13 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
     private List<Employee> empList = new ArrayList<Employee>();
     private int repId=-1, pointId=-1;
     private CollectionPoint cp;
+    private Employee currentUser;
 //todo Faster start up
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_collection);
+        setContentView(R.layout.activity_manage_collection);
+        currentUser =((App) getApplicationContext()).getUser();
         loadUI();
     }
 
@@ -50,7 +52,7 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
 
     private void loadData() {
         ApiService service2 = ApiClient.getAPIService();
-        Call<ResponseObj<CollectionPointAndRep>> call = service2.getCollectionPointsAndDeptRep();
+        Call<ResponseObj<CollectionPointAndRep>> call = service2.getCollectionPointsAndDeptRep(currentUser.getDepartmentId());
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 CollectionPointAndRep obj = response.getResObj();
@@ -71,7 +73,7 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
                 bindRadioButton();
             }
         }));
-        Call<ResponseList<Employee>> call2 = service.getEmployeeList("COMM");
+        Call<ResponseList<Employee>> call2 = service.getEmployeeList(currentUser.getDepartmentId());
         call2.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 empList.addAll(response.getResultList());
@@ -151,7 +153,7 @@ public class ManageCollectionActivity extends AppCompatActivity implements View.
     private void submitCollectionPointAndRep() {
         Employee emp = (Employee) spin_rep.getSelectedItem();
              ApiService service = ApiClient.getAPIService();
-                  Call<BaseResponse> call = service.updateCollectionPointAndRep(pointId,emp.getId());
+                  Call<BaseResponse> call = service.updateCollectionPointAndRep(pointId,emp.getId(),currentUser.getDepartmentId());
                      call.enqueue(new MyRetrofit<>(this, response -> {
                          if (response.isSuccess()) {
                              Utils.showAlert(R.string.manage_collection, R.string.success, ManageCollectionActivity.this, (dialog, which) -> {

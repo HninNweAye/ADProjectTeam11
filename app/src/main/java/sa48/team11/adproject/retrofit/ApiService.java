@@ -1,6 +1,5 @@
 package sa48.team11.adproject.retrofit;
 
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,12 +20,16 @@ import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.models.Item;
 import sa48.team11.adproject.models.ItemDisburse;
 import sa48.team11.adproject.models.ItemSpinner;
+import sa48.team11.adproject.models.LoginModel;
 import sa48.team11.adproject.models.Request;
 import sa48.team11.adproject.models.RequestItem;
 import sa48.team11.adproject.models.Retrieval;
 import sa48.team11.adproject.models.StockCard;
 
 public interface ApiService {
+
+    @POST("login")
+    Call<ResponseObj<Employee>> login(@Body LoginModel user);
 
     @GET("employees/{deptId}")
     Call<ResponseList<Employee>> getEmployeeList(@Path("deptId") String deptId);
@@ -41,36 +44,39 @@ public interface ApiService {
     Call<ResponseList<Category>> getCategories();
 
     //DepartmentHead API
-    @POST("departments/delegate")
-    Call<BaseResponse> delegate(@Body Delegation delegation);
+    @POST("head/{headId}/delegates")
+    Call<BaseResponse> delegate(@Path("headId") int headId, @Body Delegation delegation);
 
-    @GET("departments/delegates/{deptId}")
+    @GET("head/{deptId}/delegates")
     Call<ResponseList<Delegation>> getDelegationHistory(@Path("deptId") String deptId);
 
-    @PUT("departments/delegates/cancel/{delegationId}")
-    Call<BaseResponse> cancelDelegation(@Path("delegationId") int delegationId);
+    @PUT("head/{headId}/delegates/cancel")
+    Call<BaseResponse> cancelDelegation(@Path("headId") int headId, @Body Delegation d);
 
-    @GET("departments/collectionpoints/representative")
-    Call<ResponseObj<CollectionPointAndRep>> getCollectionPointsAndDeptRep();
+    @GET("head/dept/{deptId}/collectionpoints/representative")
+    Call<ResponseObj<CollectionPointAndRep>> getCollectionPointsAndDeptRep(@Path("deptId") String deptId);
 
-    @PUT("departments/collectionpoints/{pointId}/representative/{repId}")
-    Call<BaseResponse> updateCollectionPointAndRep(@Path("pointId") int pointId, @Path("repId") int repId);
+    @PUT("head/{deptId}/collectionpoints/{pointId}/representative/{repId}")
+    Call<BaseResponse> updateCollectionPointAndRep(@Path("pointId") int pointId, @Path("repId") int repId, @Path("deptId") String deptId);
 
-    @GET("departments/requests")
-    Call<ResponseList<Request>> getRequestHistory();
+    @GET("head/{deptId}/requests")
+    Call<ResponseList<Request>> getRequestHistory(@Path("deptId") String deptId);
 
-    @GET("departments/requests/{reqId}/detail")
+    @GET("head/requests/{reqId}/detail")
     Call<ResponseList<RequestItem>> getRequestDetails(@Path("reqId") int reqId);
 
-    @PATCH("departments/requests/{reqId}")
+    @PATCH("head/requests/{reqId}")
     Call<BaseResponse> updateRequestStatus(@Body Request req);
 
 
-    @PUT("representative/collectionpoints/{pointId}")
-    Call<BaseResponse> updateCollectionPoint(@Path("pointId") int pointId);
+    @PUT("representative/{deptId}/collectionpoints/{pointId}")
+    Call<BaseResponse> updateCollectionPoint(@Path("pointId") int pointId,@Path("deptId") String deptId);
 
-    @GET("representative/disbursements/{deptId}")
+    @GET("representative/{deptId}/disbursements")
     Call<ResponseListAndObj<ItemDisburse, CollectionPoint>> getDisbursementInfo(@Path("deptId") String deptId);
+
+    @POST("{deptId}/disbursements/approve")
+    Call<BaseResponse> approveDisbursement(@Path("deptId") String deptId);
 
 
     //StoreClerk API

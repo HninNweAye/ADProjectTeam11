@@ -83,13 +83,13 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
         private void changeTextColor(String status) {
             switch (status) {
-                case Constants.PENDING:
+                case Constants.STATUS_PENDING:
                     tvStatus.setTextColor(context.getColor(R.color.status_pending));
                     break;
-                case Constants.APPROVED:
+                case Constants.STATUS_APPROVED:
                     tvStatus.setTextColor(context.getColor(R.color.status_appproved));
                     break;
-                case Constants.REJECT:
+                case Constants.STATUS_REJECT:
                     tvStatus.setTextColor(context.getColor(R.color.status_reject));
                     break;
             }

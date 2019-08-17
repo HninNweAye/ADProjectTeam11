@@ -58,8 +58,15 @@ public class Utils {
     }
 
     public static void goNext(Activity source, Class destination) {
+       goNext(source,destination,false);
+    }
+
+    public static void goNext(Activity source, Class destination,boolean close) {
         Intent intent = new Intent(source, destination);
         source.startActivity(intent);
+        if(close){
+            source.finish();
+        }
     }
 
     public static void goNext(Activity source, Class destination, Bundle bdl) {

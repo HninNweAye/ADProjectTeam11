@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,8 +21,8 @@ import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
-import sa48.team11.adproject.retrofit.ResponseListAndObj;
 import sa48.team11.adproject.retrofit.ResponseObj;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 public class UpdateCollectionPointActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -32,10 +30,12 @@ public class UpdateCollectionPointActivity extends AppCompatActivity implements 
     private List<CollectionPoint> cPointList = new ArrayList<>();
     private int  pointId=-1;
     private CollectionPoint cp;
+    private Employee currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_collection);
+        currentUser =((App) getApplicationContext()).getUser();
         loadUI();
     }
 
@@ -47,7 +47,7 @@ public class UpdateCollectionPointActivity extends AppCompatActivity implements 
 
     private void loadData() {
         ApiService service2 = ApiClient.getAPIService();
-        Call<ResponseObj<CollectionPointAndRep>> call = service2.getCollectionPointsAndDeptRep();
+        Call<ResponseObj<CollectionPointAndRep>> call = service2.getCollectionPointsAndDeptRep(currentUser.getDepartmentId());
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 CollectionPointAndRep obj = response.getResObj();
@@ -87,9 +87,7 @@ public class UpdateCollectionPointActivity extends AppCompatActivity implements 
         for (int i = 0; i < ids.length; i++) {
             RadioButton rb = findViewById(ids[i]);
             rb.setText(cPointList.get(i).getName());
-            Log.d("Coll","Bind Point "+pointId+" Or "+cPointList.get(i).getId());
             if (pointId != -1 && pointId == cPointList.get(i).getId()) {
-                Log.d("Coll", "SELECT True");
                 rb.setChecked(true);
             }
         }
@@ -120,7 +118,7 @@ public class UpdateCollectionPointActivity extends AppCompatActivity implements 
 
     private void submitCollectionPoint() {
              ApiService service = ApiClient.getAPIService();
-                  Call<BaseResponse> call = service.updateCollectionPoint(pointId);
+                  Call<BaseResponse> call = service.updateCollectionPoint(pointId,currentUser.getDepartmentId());
                      call.enqueue(new MyRetrofit<>(this, response -> {
                          if (response.isSuccess()) {
                              Utils.showAlert(R.string.alert_update_collection, R.string.success, UpdateCollectionPointActivity.this, (dialog, which) -> {

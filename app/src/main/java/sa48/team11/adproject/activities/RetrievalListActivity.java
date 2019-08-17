@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +30,19 @@ public class RetrievalListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieval_list);
+        loadUI();
         loadData();
+    }
+
+    private void loadUI() {
+        Button btnConfirm = findViewById(R.id.btn_confirm);
+        btnConfirm.setOnClickListener(v -> {
+            submitRetrieval();
+        });
+    }
+
+    private void submitRetrieval() {
+
     }
 
     private void loadData() {

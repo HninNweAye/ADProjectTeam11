@@ -16,12 +16,14 @@ import retrofit2.Call;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.adapters.RequestListAdapter;
 import sa48.team11.adproject.listeners.IDatePickerListener;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.models.Item;
 import sa48.team11.adproject.models.Request;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Constants;
 import sa48.team11.adproject.utils.Utils;
 
@@ -29,11 +31,12 @@ public class ManageRequestActivity extends AppCompatActivity implements View.OnC
     private EditText edtStartDate, edtEndDate;
     private List<Request> dataList = new ArrayList<>();
     private RequestListAdapter adapter;
-
+    private Employee currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_request);
+        currentUser =((App) getApplicationContext()).getUser();
         loadUI();
     }
 
@@ -45,7 +48,7 @@ public class ManageRequestActivity extends AppCompatActivity implements View.OnC
 
     private void loadData() {
         ApiService service = ApiClient.getAPIService();
-             Call<ResponseList<Request>> call = service.getRequestHistory();
+             Call<ResponseList<Request>> call = service.getRequestHistory(currentUser.getDepartmentId());
                 call.enqueue(new MyRetrofit<>(this, response -> {
                     if (response.isSuccess()) {
                         dataList.clear();

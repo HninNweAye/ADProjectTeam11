@@ -1,11 +1,12 @@
 package sa48.team11.adproject.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
 import sa48.team11.adproject.R;
+import sa48.team11.adproject.utils.LoginPref;
 import sa48.team11.adproject.utils.Utils;
 
 public class DeptHeadDashBoard extends AppCompatActivity implements View.OnClickListener {
@@ -24,11 +25,12 @@ public class DeptHeadDashBoard extends AppCompatActivity implements View.OnClick
         reqCard.setOnClickListener(this);
         delegateCard.setOnClickListener(this);
         collectionCard.setOnClickListener(this);
+        (findViewById(R.id.fab_logout)).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.card_manage_request:
                 Utils.goNext(DeptHeadDashBoard.this, ManageRequestActivity.class);
                 break;
@@ -38,7 +40,13 @@ public class DeptHeadDashBoard extends AppCompatActivity implements View.OnClick
             case R.id.card_manage_collection:
                 Utils.goNext(DeptHeadDashBoard.this, ManageCollectionActivity.class);
                 break;
-
+            case R.id.fab_logout:
+                Utils.showAlert(true,R.string.alert_logout, R.string.confirm_logout, this, (dialog, which) -> {
+                    LoginPref pref = LoginPref.getInstance(this);
+                    pref.clear();
+                    finish();
+                });
+                break;
         }
     }
 

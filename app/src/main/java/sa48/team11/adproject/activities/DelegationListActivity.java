@@ -14,20 +14,25 @@ import java.util.List;
 import retrofit2.Call;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.adapters.DelegationListAdapter;
+import sa48.team11.adproject.listeners.IDelegationCancelListener;
 import sa48.team11.adproject.models.Delegation;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
+import sa48.team11.adproject.utils.App;
 import sa48.team11.adproject.utils.Utils;
 
 public class DelegationListActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText edtStartDate, edtEndDate;
     private List<Delegation> dataList = new ArrayList<>();
+    private Employee currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delegation_list);
+        currentUser =((App) getApplicationContext()).getUser();
         loadData();
         loadUI();
 
@@ -36,7 +41,7 @@ public class DelegationListActivity extends AppCompatActivity implements View.On
 
     private void loadData() {
         ApiService service = ApiClient.getAPIService();
-        Call<ResponseList<Delegation>> call = service.getDelegationHistory("COMM");
+        Call<ResponseList<Delegation>> call = service.getDelegationHistory(currentUser.getDepartmentId());
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 dataList.clear();
@@ -81,7 +86,18 @@ public class DelegationListActivity extends AppCompatActivity implements View.On
         rc_delegation_list.setHasFixedSize(true);
         rc_delegation_list.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this,R.anim.recycler_layout_anim));
         rc_delegation_list.setLayoutManager(new LinearLayoutManager(this));
-        DelegationListAdapter adapter= new DelegationListAdapter(this,pos ->dataList.get(pos).setStatus(false));
+        DelegationListAdapter adapter= new DelegationListAdapter(this, new IDelegationCancelListener() {
+            @Override
+            public void cancelDelegation(int pos) {
+                dataList.get(pos).setStatus(false);
+                findViewById(R.id.fab).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideCreateDelegationButton() {
+                findViewById(R.id.fab).setVisibility(View.GONE);
+            }
+        });
         rc_delegation_list.setAdapter(adapter);
         adapter.updateList(dataList);
     }

@@ -59,8 +59,11 @@
     <string name="update_collection">Update Collection Point</string>
     <string name="cancel_delegation_confirm">Are you sure to this cancel delegation?</string>
     <string name="cancel_delegation">Cancel Delegation</string>
-    <string name="confirm_disbursement">Confirm Disbursement</string>
+    <string name="alert_disbursement">Confirm Disbursement</string>
     <string name="list_not_ready">Opps!\nDisbursement List is not ready yet!!</string>
+    <string name="alert_logout">LogOut</string>
+    <string name="confirm_logout">Are you sure to logout?</string>
+    <string name="confirm_disbursement">Are you sure to approve ?</string>
 
     <string-array name="collection_point">
         <item>Select Collection Point</item>

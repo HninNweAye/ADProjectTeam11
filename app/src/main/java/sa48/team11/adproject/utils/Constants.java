@@ -4,14 +4,16 @@ package sa48.team11.adproject.utils;
  * Created by hninnwe on 2019-07-29
  */
 public class Constants {
-    public static final String PENDING = "Pending";
-    public static final String APPROVED = "Appoved";
-    public static final String REJECT = "Reject";
-    public static final String COMPLETE = "Complete";
+    public static final String STATUS_PENDING = "Pending";
+    public static final String STATUS_APPROVED = "Approved";
+    public static final String STATUS_REJECT = "Rejected";
+    public static final String STATUS_COMPLETE = "Complete";
 
     public static final String DETAIL = "detail";
 
-    public static final String ROLE_CLERK = "clerk";
-    public static final String ROLE_HEAD = "head";
+
+    public  static final String ROLE_HEAD = "Head";
+    public  static final String ROLE_CLERK = "Clerk";
+    public  static final String ROLE_REPRESENTATIVE = "Representative";
 }
 

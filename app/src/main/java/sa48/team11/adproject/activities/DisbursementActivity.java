@@ -17,11 +17,13 @@ import retrofit2.Call;
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.models.CollectionPoint;
 import sa48.team11.adproject.models.Disbursement;
+import sa48.team11.adproject.models.Employee;
 import sa48.team11.adproject.models.ItemDisburse;
 import sa48.team11.adproject.retrofit.ApiClient;
 import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
+import sa48.team11.adproject.utils.App;
 
 public class DisbursementActivity extends AppCompatActivity {
 
@@ -31,12 +33,14 @@ public class DisbursementActivity extends AppCompatActivity {
     private LinearLayout root, content;
     private TextView tvDept, tvRep, tvItem, tvActual, tvNeeded;
     private ImageButton ibtnArrow;
-    private View row = null;
+    private Employee currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disbursement);
+        currentUser =((App) getApplicationContext()).getUser();
+
         root = findViewById(R.id.parentLayout);
         loadData();
     }
@@ -123,7 +127,7 @@ public class DisbursementActivity extends AppCompatActivity {
 
     private void loadData() {
         ApiService service = ApiClient.getAPIService();
-        Call<ResponseList<Disbursement>> call = service.getDisbursementList(11236);
+        Call<ResponseList<Disbursement>> call = service.getDisbursementList(currentUser.getId());
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 disburseList.clear();
@@ -131,7 +135,7 @@ public class DisbursementActivity extends AppCompatActivity {
                 loadUI();
             }
         }));
-        Call<ResponseList<CollectionPoint>> call2 = service.getCollectionPointByClerk(11236);
+        Call<ResponseList<CollectionPoint>> call2 = service.getCollectionPointByClerk(currentUser.getId());
         call2.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
                 points.clear();
