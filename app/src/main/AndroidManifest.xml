@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.LoginActivity"></activity>
         <activity android:name=".activities.ConfirmDisbursementActivity" />
-        <activity android:name=".activities.DisbursementActivity" />
+        <activity android:name=".activities.ManageDisbursementActivity" />
         <activity android:name=".activities.AdjVoucherCreateActivity" />
         <activity
             android:name=".activities.AdjVoucherHistoryActivity"

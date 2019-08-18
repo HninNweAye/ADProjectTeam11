@@ -64,6 +64,8 @@
     <string name="alert_logout">LogOut</string>
     <string name="confirm_logout">Are you sure to logout?</string>
     <string name="confirm_disbursement">Are you sure to approve ?</string>
+    <string name="login_fail">UserName or Password Wrong.Please Check again!!</string>
+    <string name="retrieval_success">Retrieval List is confirmed. Now Disbursement Lists are ready.</string>
 
     <string-array name="collection_point">
         <item>Select Collection Point</item>

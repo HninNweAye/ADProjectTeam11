@@ -8,13 +8,13 @@ import java.util.List;
 public class Disbursement {
 
     @SerializedName("CollectionPointID")
-    private Long collectionPointID;
+    private int collectionPointID;
     @SerializedName("DeptId")
     private String deptId;
     @SerializedName("DeptName")
     private String deptName;
     @SerializedName("Phone")
-    private Object phone;
+    private String phone;
     @SerializedName("RepName")
     private String repName;
     @SerializedName("ItemList")
@@ -30,7 +30,7 @@ public class Disbursement {
         return isItemAlreadyAdd;
     }
 
-    public Disbursement(Long collectionPointID, String deptId, String deptName, Object phone, String repName, List<ItemDisburse> items) {
+    public Disbursement(int collectionPointID, String deptId, String deptName, String phone, String repName, List<ItemDisburse> items) {
         this.collectionPointID = collectionPointID;
         this.deptId = deptId;
         this.deptName = deptName;
@@ -39,11 +39,11 @@ public class Disbursement {
         this.items = items;
     }
 
-    public Long getCollectionPointID() {
+    public int getCollectionPointID() {
         return collectionPointID;
     }
 
-    public void setCollectionPointID(Long collectionPointID) {
+    public void setCollectionPointID(int collectionPointID) {
         this.collectionPointID = collectionPointID;
     }
 
@@ -59,7 +59,7 @@ public class Disbursement {
         return deptName;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 

@@ -1,8 +1,12 @@
 package sa48.team11.adproject.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,15 +28,14 @@ import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.retrofit.ResponseList;
 import sa48.team11.adproject.utils.App;
+import sa48.team11.adproject.utils.Utils;
 
-public class DisbursementActivity extends AppCompatActivity {
+public class ManageDisbursementActivity extends AppCompatActivity {
 
     List<Disbursement> disburseList = new ArrayList<>();
-    List<ItemDisburse> items = new ArrayList<>();
     List<CollectionPoint> points = new ArrayList<>();
     private LinearLayout root, content;
     private TextView tvDept, tvRep, tvItem, tvActual, tvNeeded;
-    private ImageButton ibtnArrow;
     private Employee currentUser;
 
     @Override
@@ -42,6 +45,11 @@ public class DisbursementActivity extends AppCompatActivity {
         currentUser =((App) getApplicationContext()).getUser();
 
         root = findViewById(R.id.parentLayout);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -68,9 +76,11 @@ public class DisbursementActivity extends AppCompatActivity {
         ImageButton ibtnArrow = card.findViewById(R.id.ibtn_arrow);
         LinearLayout content = card.findViewById(R.id.content);
         LinearLayout itemLinear = card.findViewById(R.id.itemLinear);
+        TextView tv_call = card.findViewById(R.id.tv_call);
+        TextView tv_update = card.findViewById(R.id.tv_update);
 
-        Toast.makeText(this, "Size " + d.getItems().size(), Toast.LENGTH_SHORT).show();
-
+        tv_call.setOnClickListener(v->callPhone(d.getPhone()));
+        tv_update.setOnClickListener(v->updateItems(d));
         ibtnArrow.setOnClickListener(view -> {
             Toast.makeText(this, "Dept " + d.getDeptName(), Toast.LENGTH_SHORT).show();
             if (content.getVisibility() == View.GONE) {
@@ -101,6 +111,16 @@ public class DisbursementActivity extends AppCompatActivity {
         root.addView(card);
 
 
+    }
+
+    private void updateItems(Disbursement d) {
+        Utils.goNext(ManageDisbursementActivity.this,UpdateDisburseActivity.class);
+    }
+
+    private void callPhone(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(String.format("tel:+65%s",phone)));
+        startActivity(intent);
     }
 
     private void createCard(Disbursement d) {
@@ -143,5 +163,18 @@ public class DisbursementActivity extends AppCompatActivity {
             }
         }));
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, 1, Menu.NONE, "Refresh").setIcon(R.drawable.ic_refresh)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        loadData();
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class ConfirmDisbursementActivity extends AppCompatActivity {
             items = response.getResultList();
             bindCollectionPointInfo(response.getResObj());
             renderRecyclerView();
-            if (response.isSuccess()) {
+            if (response.isSuccess() && items.size() > 0) {
                 btnApprove.setVisibility(View.VISIBLE);
             } else {
                 btnApprove.setVisibility(View.INVISIBLE);
@@ -97,9 +99,11 @@ public class ConfirmDisbursementActivity extends AppCompatActivity {
             });
         });
     }
-
+//todo testing
     private void approve() {
-        ApiService service = ApiClient.getAPIService();
+        Log.d("Retrofit", "approve: "+currentUser.getDepartmentId());
+        Log.d("Retrofit", "approve: "+currentUser.getName());
+         ApiService service = ApiClient.getAPIService();
         Call<BaseResponse> call = service.approveDisbursement(currentUser.getDepartmentId());
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {

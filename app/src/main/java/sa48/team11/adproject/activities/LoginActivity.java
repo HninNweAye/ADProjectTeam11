@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (chkRemember.isChecked()) pref.put(obj);
                 else pref.clear();
             } else {
-                Utils.showAlert(R.string.title_activity_login, R.string.alert_fail, LoginActivity.this);
+                Utils.showAlert(R.string.title_activity_login, R.string.login_fail, LoginActivity.this);
             }
         }));
 

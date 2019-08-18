@@ -95,14 +95,15 @@
                 android:paddingBottom="@dimen/margin_5dp">
 
                 <TextView
-                    android:id="@+id/tv_phone"
+                    android:id="@+id/tv_call"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Call"
                     android:gravity="center_horizontal"
                     android:textColor="@color/primary_green"
-                    android:textSize="@dimen/textsize_normal" />
+                    android:textSize="@dimen/textsize_normal"
+                    android:clickable="true"/>
 
                 <View
                     android:layout_width="2dp"
@@ -117,7 +118,8 @@
                     android:gravity="center"
                     android:text="Update"
                     android:textColor="@color/primary_green"
-                    android:textSize="@dimen/textsize_normal" />
+                    android:textSize="@dimen/textsize_normal"
+                    android:clickable="true"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

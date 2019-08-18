@@ -75,7 +75,7 @@ public interface ApiService {
     @GET("representative/{deptId}/disbursements")
     Call<ResponseListAndObj<ItemDisburse, CollectionPoint>> getDisbursementInfo(@Path("deptId") String deptId);
 
-    @POST("{deptId}/disbursements/approve")
+    @GET("representative/{deptId}/disbursements/approve")
     Call<BaseResponse> approveDisbursement(@Path("deptId") String deptId);
 
 
@@ -94,6 +94,9 @@ public interface ApiService {
 
     @GET("clerk/retrievals")
     Call<ResponseList<Retrieval>> getRetrievalList();
+
+    @POST("clerk/{clerkId}/retrievals")
+    Call<BaseResponse> confirmRetrievals(@Path("clerkId") int clerkID,@Body List<Retrieval> retrievals);
 
     @GET("clerk/{clerkId}/disbursements")
     Call<ResponseList<Disbursement>> getDisbursementList(@Path("clerkId") int clerkID);
