@@ -3,30 +3,32 @@ package sa48.team11.adproject.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class ItemDisburse {
+public class ItemDisburse implements Serializable {
 
     @SerializedName("ActualQty")
-    private Long actualQty;
+    private int actualQty;
     @SerializedName("Description")
     private String description;
     @SerializedName("ItemId")
     private String itemId;
     @SerializedName("NeededQty")
-    private Long neededQty;
+    private int neededQty;
 
-    public ItemDisburse(Long actualQty, String description, String itemId, Long neededQty) {
+    public ItemDisburse(int actualQty, String description, String itemId, int neededQty) {
         this.actualQty = actualQty;
         this.description = description;
         this.itemId = itemId;
         this.neededQty = neededQty;
     }
 
-    public Long getActualQty() {
+    public int getActualQty() {
         return actualQty;
     }
 
-    public void setActualQty(Long actualQty) {
+    public void setActualQty(int actualQty) {
         this.actualQty = actualQty;
     }
 
@@ -46,11 +48,11 @@ public class ItemDisburse {
         this.itemId = itemId;
     }
 
-    public Long getNeededQty() {
+    public int getNeededQty() {
         return neededQty;
     }
 
-    public void setNeededQty(Long neededQty) {
+    public void setNeededQty(int neededQty) {
         this.neededQty = neededQty;
     }
 

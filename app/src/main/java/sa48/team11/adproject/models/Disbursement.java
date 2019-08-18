@@ -3,9 +3,10 @@ package sa48.team11.adproject.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Disbursement {
+public class Disbursement implements Serializable {
 
     @SerializedName("CollectionPointID")
     private int collectionPointID;

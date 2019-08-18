@@ -50,8 +50,8 @@ public interface ApiService {
     @GET("head/{deptId}/delegates")
     Call<ResponseList<Delegation>> getDelegationHistory(@Path("deptId") String deptId);
 
-    @PUT("head/{headId}/delegates/cancel")
-    Call<BaseResponse> cancelDelegation(@Path("headId") int headId, @Body Delegation d);
+    @PUT("head/{headId}/{deptId}/delegates/cancel")
+    Call<BaseResponse> cancelDelegation(@Path("headId") int headId,@Path("deptId") String deptId, @Body Delegation d);
 
     @GET("head/dept/{deptId}/collectionpoints/representative")
     Call<ResponseObj<CollectionPointAndRep>> getCollectionPointsAndDeptRep(@Path("deptId") String deptId);
@@ -100,6 +100,9 @@ public interface ApiService {
 
     @GET("clerk/{clerkId}/disbursements")
     Call<ResponseList<Disbursement>> getDisbursementList(@Path("clerkId") int clerkID);
+
+    @POST("clerk/{clerkId}/{deptId}/disbursements")
+    Call<BaseResponse> updateDisbursementItems(@Path("clerkId") int clerkID,@Path("deptId") String deptID,@Body List<ItemDisburse> items);
 
     @GET("clerk/{clerkId}/collectionPoints")
     Call<ResponseList<CollectionPoint>> getCollectionPointByClerk(@Path("clerkId") int clerkID);

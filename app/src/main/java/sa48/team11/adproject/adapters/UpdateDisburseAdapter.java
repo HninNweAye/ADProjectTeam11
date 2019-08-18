@@ -18,24 +18,25 @@ import java.util.List;
 
 import sa48.team11.adproject.R;
 import sa48.team11.adproject.listeners.IActualValueChangeListener;
-import sa48.team11.adproject.models.Retrieval;
+import sa48.team11.adproject.models.ItemDisburse;
 
 /**
  * Created by hninnwe on 2019-07-31
  */
-public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.MyViewHolder> {
+public class UpdateDisburseAdapter extends RecyclerView.Adapter<UpdateDisburseAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Retrieval> list = new ArrayList<>();
+    private List<ItemDisburse> list = new ArrayList<>();
     private LayoutInflater inflater;
     private IActualValueChangeListener listener;
-    public RetrievalAdapter(Context context, IActualValueChangeListener listener) {
+
+    public UpdateDisburseAdapter(Context context, IActualValueChangeListener listener) {
         this.context = context;
         this.listener = listener;
         inflater = LayoutInflater.from(context);
     }
 
-    public void updateList(List<Retrieval> list) {
+    public void updateList(List<ItemDisburse> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -43,48 +44,48 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v =inflater.inflate(R.layout.adapter_retrieval_list, viewGroup, false);
+        View v = inflater.inflate(R.layout.adapter_update_disburse_list, viewGroup, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
         myViewHolder.bind(list.get(position));
-        myViewHolder.ibtnEdit.setOnClickListener(v->showInputDialog(position));
+        myViewHolder.ibtnEdit.setOnClickListener(v -> showInputDialog(position));
 
     }
 
     private void showInputDialog(int position) {
-        Retrieval retrieval = list.get(position);
+        ItemDisburse retrieval = list.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyAlertDialogStyle);
-        builder.setTitle("Retrieval");
-        View v  = inflater.inflate(R.layout.dialog_retrieval,null);
+        builder.setTitle("UpdateDisbursement");
+        View v = inflater.inflate(R.layout.dialog_retrieval, null);
         TextView tv_item = v.findViewById(R.id.tv_item);
         EditText edt_total = v.findViewById(R.id.edt_total);
         EditText edt_actual = v.findViewById(R.id.edt_actual);
-        TextInputLayout tiActual = v.findViewById(R.id.ti_actual);
-
-        tv_item.setText(String.format("Item : %s",retrieval.getDescription()));
-        edt_total.setText(""+retrieval.getQty());
-        edt_actual.setText(""+retrieval.getActualQty());
+        TextInputLayout ti_actual = v.findViewById(R.id.ti_actual);
+        tv_item.setText(String.format("Item : %s", retrieval.getDescription()));
+        edt_total.setText("" + retrieval.getNeededQty());
+        edt_actual.setText("" + retrieval.getActualQty());
         builder.setView(v);
         builder.setIcon(R.drawable.logo);
         builder.setCancelable(false);
-        builder.setNegativeButton("Cancel",null);
+        builder.setNegativeButton("Cancel", null);
         builder.setPositiveButton("Ok", (dialog, which) -> {
             dialog.dismiss();
             String value = edt_actual.getText().toString();
             if (TextUtils.isDigitsOnly(value)) {
                 int actual = Integer.parseInt(value);
                 if (actual < 0) {
-                    tiActual.setError("Number can not be negative.");
+                    ti_actual.setError("Number can not be negative.");
                     return;
                 }
+                int decreasedValue = list.get(position).getActualQty()-actual;
                 list.get(position).setActualQty(actual);
                 notifyDataSetChanged();
-                listener.updateActual(position, actual);
-            } else{
-                tiActual.setError("Please add Actual amount");
+                listener.updateActual(position, decreasedValue);
+            } else {
+                ti_actual.setError("Please add Actual amount");
             }
         });
         builder.show();
@@ -96,22 +97,21 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName,tvBin, tvNeeded,tvActual;
+        private TextView tvName, tvNeeded, tvActual;
         private ImageButton ibtnEdit;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName =itemView.findViewById(R.id.tv_name);
-            tvBin =itemView.findViewById(R.id.tv_bin);
-            tvNeeded =itemView.findViewById(R.id.tv_needed);
-            tvActual =itemView.findViewById(R.id.tv_actual);
-            ibtnEdit =itemView.findViewById(R.id.ibtn_edit);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvNeeded = itemView.findViewById(R.id.tv_needed);
+            tvActual = itemView.findViewById(R.id.tv_actual);
+            ibtnEdit = itemView.findViewById(R.id.ibtn_edit);
         }
-        public void bind(Retrieval item) {
+
+        public void bind(ItemDisburse item) {
             tvName.setText(item.getDescription());
-            tvBin.setText(String.format("#%s",item.getBinNo()));
-            tvNeeded.setText(String.format("%d",item.getQty()));
-            tvActual.setText(String.format("%d",item.getActualQty()));
+            tvNeeded.setText(String.format("%d", item.getNeededQty()));
+            tvActual.setText(String.format("%d", item.getActualQty()));
         }
     }
 }

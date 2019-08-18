@@ -45,13 +45,9 @@ public class ManageDisbursementActivity extends AppCompatActivity {
         currentUser =((App) getApplicationContext()).getUser();
 
         root = findViewById(R.id.parentLayout);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         loadData();
     }
+
 
     private void loadUI() {
         for (CollectionPoint p : points) {
@@ -114,7 +110,10 @@ public class ManageDisbursementActivity extends AppCompatActivity {
     }
 
     private void updateItems(Disbursement d) {
-        Utils.goNext(ManageDisbursementActivity.this,UpdateDisburseActivity.class);
+        Intent intent = new Intent(ManageDisbursementActivity.this,UpdateDisburseActivity.class);
+        intent.putExtra("data",d);
+        startActivity(intent);
+        finish();
     }
 
     private void callPhone(String phone) {

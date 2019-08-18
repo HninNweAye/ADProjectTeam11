@@ -1,16 +1,11 @@
 package sa48.team11.adproject.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +35,7 @@ public class DisburseItemAdapter extends RecyclerView.Adapter<DisburseItemAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v =inflater.inflate(R.layout.adapter_update_disburse, viewGroup, false);
+        View v =inflater.inflate(R.layout.adapter_confirm_disburse, viewGroup, false);
         return new MyViewHolder(v);
     }
 

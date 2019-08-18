@@ -9,17 +9,17 @@
     android:paddingTop="@dimen/margin_10dp">
     <!--Header-->
     <TextView
-        android:id="@+id/tv_collection"
+        android:id="@+id/tv_dept_name"
         style="@style/tv_disburse_header"
         android:layout_marginBottom="@dimen/margin_10dp"
-        android:text="CollectionPoint : English Department"
+        android:text="Department : "
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_current_time"
+        android:id="@+id/tv_representative"
         style="@style/tv_disburse_header"
         android:layout_marginBottom="@dimen/margin_10dp"
-        android:text="Representative : Jenny "
+        android:text="Representative : "
         android:textStyle="bold" />
 
     <android.support.v7.widget.CardView
@@ -64,7 +64,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_weight="1" />
     <Button
-        android:id="@+id/btn_confirm"
+        android:id="@+id/btn_update"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:text="@string/update"

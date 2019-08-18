@@ -72,7 +72,7 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
     private void cancelDelegation(int pos) {
 
         ApiService service = ApiClient.getAPIService();
-        Call<BaseResponse> call = service.cancelDelegation(currentUser.getId(),delegationList.get(pos));
+        Call<BaseResponse> call = service.cancelDelegation(currentUser.getId(),currentUser.getDepartmentId(),delegationList.get(pos));
         Toast.makeText(context, "Result"+delegationList.get(pos).getId(), Toast.LENGTH_SHORT).show();
 
         call.enqueue(new MyRetrofit<>((DelegationListActivity)context, res -> {
