@@ -89,8 +89,9 @@ public class DelegationListActivity extends AppCompatActivity implements View.On
         DelegationListAdapter adapter= new DelegationListAdapter(this, new IDelegationCancelListener() {
             @Override
             public void cancelDelegation(int pos) {
-                dataList.get(pos).setStatus(false);
-                findViewById(R.id.fab).setVisibility(View.VISIBLE);
+//                dataList.get(pos).setStatus(false);
+//                findViewById(R.id.fab).setVisibility(View.VISIBLE);
+                loadData();
             }
 
             @Override

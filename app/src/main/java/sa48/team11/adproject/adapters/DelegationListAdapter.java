@@ -78,10 +78,12 @@ public class DelegationListAdapter extends RecyclerView.Adapter<DelegationListAd
         call.enqueue(new MyRetrofit<>((DelegationListActivity)context, res -> {
             Log.d("Res",res.toString());
             if(res.isSuccess()) {
-                Utils.showAlert(R.string.cancel_delegation,R.string.success,(DelegationListActivity)context);
-                delegationList.get(pos).setStatus(false);
-                notifyDataSetChanged();
-                listener.cancelDelegation(pos);
+                Utils.showAlert(R.string.cancel_delegation,R.string.success,(DelegationListActivity)context,(dialog,which)->{
+//                    delegationList.get(pos).setStatus(false);
+//                    notifyDataSetChanged();
+                    listener.cancelDelegation(pos);
+                });
+
             }else{
                 Utils.showAlert(R.string.cancel_delegation,R.string.alert_fail,(DelegationListActivity)context);
             }
