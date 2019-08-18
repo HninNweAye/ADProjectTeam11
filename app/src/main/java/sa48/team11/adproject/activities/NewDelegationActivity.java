@@ -77,7 +77,7 @@ public class NewDelegationActivity extends AppCompatActivity implements View.OnC
         Delegation delegation = new Delegation(e.getId(),e.getName(),e.getEmail(),start,end,edtReason.getText().toString());
 
         ApiService service = ApiClient.getAPIService();
-        Call<BaseResponse> call = service.delegate(currentUser.getId(),delegation);
+        Call<BaseResponse> call = service.delegate(currentUser.getId(),currentUser.getDepartmentId(),delegation);
         call.enqueue(new MyRetrofit<>(this, res -> {
             Log.d("Res", res.toString());
             Utils.showAlert(R.string.new_delegation,R.string.success,NewDelegationActivity.this,true);

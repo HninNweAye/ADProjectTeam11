@@ -44,8 +44,8 @@ public interface ApiService {
     Call<ResponseList<Category>> getCategories();
 
     //DepartmentHead API
-    @POST("head/{headId}/delegates")
-    Call<BaseResponse> delegate(@Path("headId") int headId, @Body Delegation delegation);
+    @POST("head/{headId}/{deptId}/delegates")
+    Call<BaseResponse> delegate(@Path("headId") int headId,@Path("deptId") String deptId, @Body Delegation delegation);
 
     @GET("head/{deptId}/delegates")
     Call<ResponseList<Delegation>> getDelegationHistory(@Path("deptId") String deptId);
