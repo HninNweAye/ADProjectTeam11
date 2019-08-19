@@ -46,10 +46,12 @@ public class ManageDisbursementActivity extends AppCompatActivity {
 
         root = findViewById(R.id.parentLayout);
         loadData();
+        loadData();
     }
 
 
     private void loadUI() {
+       root.removeAllViews();
         for (CollectionPoint p : points) {
             TextView tv = new TextView(this, null, 0, R.style.tv_disbursement_point);
             tv.setText(p.getName());
@@ -78,7 +80,6 @@ public class ManageDisbursementActivity extends AppCompatActivity {
         tv_call.setOnClickListener(v->callPhone(d.getPhone()));
         tv_update.setOnClickListener(v->updateItems(d));
         ibtnArrow.setOnClickListener(view -> {
-            Toast.makeText(this, "Dept " + d.getDeptName(), Toast.LENGTH_SHORT).show();
             if (content.getVisibility() == View.GONE) {
                 content.setVisibility(View.VISIBLE);
                 content.setAlpha(0.0f);

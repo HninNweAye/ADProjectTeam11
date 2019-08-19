@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -135,8 +136,7 @@ public class AdjVoucherCreateActivity extends AppCompatActivity implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == R.id.spin_category) {
-            Toast.makeText(AdjVoucherCreateActivity.this, "CategorysSelect" + categories.get(position), Toast.LENGTH_SHORT).show();
-            loadItemByCategory(categories.get(position).getId());
+            if(categories.size()>0)loadItemByCategory(categories.get(position).getId());
         } else {
 
         }
@@ -182,22 +182,30 @@ public class AdjVoucherCreateActivity extends AppCompatActivity implements Adapt
             if (response.isSuccess()) {
                 Utils.showAlert(R.string.create_adj_voucher, R.string.success, AdjVoucherCreateActivity.this, true);
             }
+            Toast.makeText(this, "Response  :   "+response.isSuccess(), Toast.LENGTH_SHORT).show();
         }));
     }
 
     private void addToList() {
         if (Utils.getText(edtQuantity).isEmpty()) {
             ((TextInputLayout) findViewById(R.id.ti_quantity)).setError("Please add quantity");
+            return;
         }
+
         String qty = getQuantity();
         if (qty == null) {
             ((TextInputLayout) findViewById(R.id.ti_quantity)).setError("Please add + or - ");
+            return;
         }
         if (reason.equals("Other")) reason = Utils.getText(edtReason);
 
         ItemSpinner item = (ItemSpinner) spinItem.getSelectedItem();
-        adjItemList.add(new AdjItem(item.getItemId(), item.getDescription(), Integer.parseInt(qty), reason));
-
+        try {
+            adjItemList.add(new AdjItem(item.getItemId(), item.getDescription(), Integer.parseInt(qty), reason));
+        }catch (Exception e){
+            ((TextInputLayout) findViewById(R.id.ti_quantity)).setError("Please type number only");
+            return;
+        }
         adapter.updateList(adjItemList);
     }
 

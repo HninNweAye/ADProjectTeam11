@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import sa48.team11.adproject.utils.Utils;
 
 public class RetrievalListActivity extends AppCompatActivity {
     private List<Retrieval> retrievals = new ArrayList<>();
+    private Button btnConfirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +38,7 @@ public class RetrievalListActivity extends AppCompatActivity {
     }
 
     private void loadUI() {
-        Button btnConfirm = findViewById(R.id.btn_confirm);
+        btnConfirm = findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(v -> {
             submitRetrieval();
         });
@@ -66,6 +69,12 @@ public class RetrievalListActivity extends AppCompatActivity {
             }));
     }
     private void renderRecyclerView() {
+        if(retrievals.size() == 0){
+            btnConfirm.setVisibility(View.INVISIBLE);
+            return;
+        }else{
+            btnConfirm.setVisibility(View.VISIBLE);
+        }
         RecyclerView rc_req_list = findViewById(R.id.rc_retrieval_list);
         rc_req_list.setHasFixedSize(true);
         rc_req_list.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this,R.anim.recycler_layout_anim));

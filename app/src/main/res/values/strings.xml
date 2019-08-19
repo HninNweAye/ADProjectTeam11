@@ -52,6 +52,7 @@
     <string name="alert_confirm">Warning</string>
     <string name="confirm_req_status">Are you sure ?</string>
     <string name="approve_confirm">Are you sure to approve the request?</string>
+    <string name="approve_all_confirm">Are you sure to approve ALL the request?</string>
     <string name="reject_confirm">Are you sure to reject the request?</string>
     <string name="confirm">Confirm</string>
     <string name="update">Update</string>
@@ -66,6 +67,9 @@
     <string name="confirm_disbursement">Are you sure to approve ?</string>
     <string name="login_fail">UserName or Password Wrong.Please Check again!!</string>
     <string name="retrieval_success">Retrieval List is confirmed. Now Disbursement Lists are ready.</string>
+    <string name="update_disbursement">Updating DisbursementI</string>
+    <string name="approve_all">Approve All</string>
+    <string name="alert_approve">Approving All Request</string>
 
     <string-array name="collection_point">
         <item>Select Collection Point</item>

@@ -17,11 +17,22 @@ public class ItemDisburse implements Serializable {
     @SerializedName("NeededQty")
     private int neededQty;
 
+    private int oldVal;
+
+    public int getOldVal() {
+        return this.oldVal;
+    }
+
+    public void setOldVal(int oldVal) {
+        this.oldVal = oldVal;
+    }
+
     public ItemDisburse(int actualQty, String description, String itemId, int neededQty) {
         this.actualQty = actualQty;
         this.description = description;
         this.itemId = itemId;
         this.neededQty = neededQty;
+        this.oldVal = actualQty;
     }
 
     public int getActualQty() {
@@ -39,6 +50,7 @@ public class ItemDisburse implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public String getItemId() {
         return itemId;

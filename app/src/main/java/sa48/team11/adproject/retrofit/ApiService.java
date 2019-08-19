@@ -65,8 +65,12 @@ public interface ApiService {
     @GET("head/requests/{reqId}/detail")
     Call<ResponseList<RequestItem>> getRequestDetails(@Path("reqId") int reqId);
 
-    @PATCH("head/requests/{reqId}")
+    @PATCH("head/requests")
     Call<BaseResponse> updateRequestStatus(@Body Request req);
+
+    @GET("head/{deptId}/requests/approve_all")
+    Call<BaseResponse> approveAllRequest(@Path("deptId") String deptId);
+
 
 
     @PUT("representative/{deptId}/collectionpoints/{pointId}")

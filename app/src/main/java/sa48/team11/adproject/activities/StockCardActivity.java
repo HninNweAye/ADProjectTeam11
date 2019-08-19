@@ -34,7 +34,7 @@ public class StockCardActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_card);
-        loadData("P085");
+        loadData("P030");
         loadUI();
     }
 

@@ -27,9 +27,10 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
     private Context context;
     private List<Request> reqList = new ArrayList<>();
     private Bundle bdl = new Bundle();
-
-    public RequestListAdapter(Context context) {
+    private IShowApproveAllListener listener;
+    public RequestListAdapter(Context context,IShowApproveAllListener listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     public void updateList(List<Request> reqList) {
@@ -85,6 +86,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             switch (status) {
                 case Constants.STATUS_PENDING:
                     tvStatus.setTextColor(context.getColor(R.color.status_pending));
+                    listener.show();
                     break;
                 case Constants.STATUS_APPROVED:
                     tvStatus.setTextColor(context.getColor(R.color.status_appproved));
@@ -96,6 +98,8 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         }
     }
 
-
+  public   interface  IShowApproveAllListener{
+        void show();
+    }
 }
 

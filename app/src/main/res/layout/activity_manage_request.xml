@@ -34,8 +34,19 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rc_req_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
+        <Button
+            android:id="@+id/btn_approve"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/approve_all"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            />
 
     </LinearLayout>
 

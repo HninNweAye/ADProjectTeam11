@@ -1,5 +1,6 @@
 package sa48.team11.adproject.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import sa48.team11.adproject.retrofit.ApiService;
 import sa48.team11.adproject.retrofit.BaseResponse;
 import sa48.team11.adproject.retrofit.MyRetrofit;
 import sa48.team11.adproject.utils.App;
+import sa48.team11.adproject.utils.Utils;
 
 public class UpdateDisburseActivity extends AppCompatActivity {
     private List<ItemDisburse> items = new ArrayList<>();
@@ -57,9 +59,10 @@ public class UpdateDisburseActivity extends AppCompatActivity {
         Call<BaseResponse> call = service.updateDisbursementItems(currentUser.getId(), disbursement.getDeptId(), updatedItems);
         call.enqueue(new MyRetrofit<>(this, response -> {
             if (response.isSuccess()) {
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                Utils.showAlert(R.string.update_disbursement, R.string.success, UpdateDisburseActivity.this, (dialog, which) -> {
+                    finish();
+                });
             }
-            Toast.makeText(this, "Response" + response.isSuccess(), Toast.LENGTH_SHORT).show();
         }));
     }
 
@@ -71,14 +74,23 @@ public class UpdateDisburseActivity extends AppCompatActivity {
         rc_req_list.setLayoutManager(new LinearLayoutManager(this));
         UpdateDisburseAdapter adapter = new UpdateDisburseAdapter(this, (position, decreaseValue) -> {
             ItemDisburse  original = items.get(position);
-            original.setActualQty(decreaseValue);
-            updatedItems.add(original);
-            Toast.makeText(this, "Update"+original.getActualQty(), Toast.LENGTH_SHORT).show();
-//            items.get(position).setActualQty(actual);
+            if( !checkItemExist(original,decreaseValue)) {
+                updatedItems.add(new ItemDisburse(decreaseValue, original.getDescription(), original.getItemId(), original.getNeededQty()));
+            }
 
         });
         rc_req_list.setAdapter(adapter);
         adapter.updateList(items);
+    }
+
+    private boolean checkItemExist(ItemDisburse original, int decreaseValue) {
+        for(int i = 0; i<updatedItems.size() ;i++){
+            if(updatedItems.get(i).getItemId() == original.getItemId()){
+                updatedItems.get(i).setActualQty(decreaseValue);
+                return true;
+            }
+        }
+        return false;
     }
 
 

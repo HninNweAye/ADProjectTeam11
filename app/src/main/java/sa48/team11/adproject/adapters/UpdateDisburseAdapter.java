@@ -57,6 +57,7 @@ public class UpdateDisburseAdapter extends RecyclerView.Adapter<UpdateDisburseAd
 
     private void showInputDialog(int position) {
         ItemDisburse retrieval = list.get(position);
+        retrieval.setOldVal(retrieval.getActualQty());
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyAlertDialogStyle);
         builder.setTitle("UpdateDisbursement");
         View v = inflater.inflate(R.layout.dialog_retrieval, null);
@@ -72,7 +73,7 @@ public class UpdateDisburseAdapter extends RecyclerView.Adapter<UpdateDisburseAd
         builder.setCancelable(false);
         builder.setNegativeButton("Cancel", null);
         builder.setPositiveButton("Ok", (dialog, which) -> {
-            dialog.dismiss();
+            ItemDisburse tempItem = list.get(position);
             String value = edt_actual.getText().toString();
             if (TextUtils.isDigitsOnly(value)) {
                 int actual = Integer.parseInt(value);
@@ -80,13 +81,20 @@ public class UpdateDisburseAdapter extends RecyclerView.Adapter<UpdateDisburseAd
                     ti_actual.setError("Number can not be negative.");
                     return;
                 }
-                int decreasedValue = list.get(position).getActualQty()-actual;
+                if (actual > tempItem.getOldVal()) {
+                    ti_actual.setError("Number Exceeded");
+                    return;
+                }
+                int decreasedVal = tempItem.getOldVal()-actual;
                 list.get(position).setActualQty(actual);
                 notifyDataSetChanged();
-                listener.updateActual(position, decreasedValue);
+                listener.updateActual(position, decreasedVal);
             } else {
                 ti_actual.setError("Please add Actual amount");
+                return;
             }
+            dialog.dismiss();
+
         });
         builder.show();
     }
